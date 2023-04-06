@@ -1,82 +1,56 @@
 # MachineLearning
 
-**Decision Tree Algorithm**
+**Customer Segmentation using K-Means Clustering**
 
 
-**Part 1: Data Source and Contents**
+The aim of this assignment is to perform customer segmentation using the K-Means clustering algorithm in order to better understand the different types of customers in a given dataset called 'Mall_Customers." 
 
-Use the following path as the data source:
-  "https://github.com/ArinB/MSBA-CA-03-Decision-Trees/blob/master/census_data.csv?raw=true"
- 
-The dataset is obtained from the Census Bureau and represents salaries of people along with seven demographic variables. The target feature 'y' labels [1,0], meaning income '>50K' and '<=50K'.
+There are five columns in this given dataset; that are CustomerID, Gender, Age, Annual Income and spending power. Categorical variables is gender and others are numerical. The target variables for this case are annual income and spending power. 
 
+Part 1: 
+Load the dataset and perform exploratory data analysis (EDA): 
 
+1. Import the necessary libraries (pandas, numpy, matplotlib, seaborn) 
 
-**Part 2: Data Quality Analysis (DQA)**
-  • Perform a Data Quality Analysis to find missing values, outliers
-  • Display descriptive statistics of each column
-  • Perform data cleaning, such as eliminating irrelavant characters in DataFrame and using one-hot coding techniques to transform column values
+2. Load the dataset using pandas and display the first few rows and the shape
 
+3. Check for missing values. The results shows no missing values, so no furthur action needed. 
 
+4. Visualize the distribution of numerical variables of 'age' 'annual income' 'spending score' using histograms. Additionally, use boxplots to visualize 'spending score' for checking outliers 
 
-**Part 3: Build Decision Tree Classifier Models**
-Definition: Given a data of attributes together with its classes, a decision tree produces a sequence of rules that can be used to classify the data.
+Part 2:
+Data preprocessing for clustering: 
 
-Advantages: Decision Tree is simple to understand and visualise, requires little data preparation, and can handle both numerical and categorical data.
+1. create a copy of the original dataframe and encode 'Gender' for dummy variable 
 
-Disadvantages: Decision tree can create complex trees that do not generalize well, anddecision trees can be unstable because small variations in the data might result in a completely different tree being generated.
+2. feature selection: Choose the appropriate features 'Annual income' and 'Spending score' for clustering within a new DataFrame
 
-Steps as following:
-  -Separate train and test DataFrame
-  -Separate features and labels (target variables)
-  -Use “DecisionTreeClassifier” algorithm from scikit learn.
+3. Perform feature scaling, StandardScaler 
 
+Part 3: 
+Implement k-means clustering: 
 
+1. Import the KMeans class from the sklearn.cluster module 
 
-**Part 4: Evaluate Decision Tree Performance**
-Calculate and display the following:
-  • Confusion Matrix 
-  • Accuracy, Precision, Recall, F1 Score
-  
-  
-  
-**Part 5: Tune Decision Tree Performance**
+2. Use the Silhouette Method to determine the optimal number of clusters and visualize a silhouette analysis
 
-Try varying FOUR of the hyperparameters manually,and train / score my model for each set of these hyperparameters.
+3. Train the KMeans model with the optimal number of clusters 
 
-Four Hyperparameters to vary:
-  • Split Criteria – ‘Entropy’ or ‘Gini Impurity’
-  • Maximum Features 
-  • Minimum Sample Leaf 
-  • Maximum Depth 
-My goal is to determine the hyper-parameter values for the “best-performing” tree with respect to “accuracy”.
+4. Obtain the cluster assignments for each data point
 
-At the end, I check run time while running the best model
+5. Create a scatter plot of the selected features, colored by cluster assignment 
 
 
+Part 4: 
+K-means visualization with analysis and recommendation
 
-**Part 6: Visualize Your Best Decision Tree**
 
+Cluster 1 (Purple): low spending, low annual income; They are likely to be more price-sensitive and may prioritize essential products or services. Marketing strategies targeting this segment should focus on offering affordable, high-value products and promotions.
 
-**Part 7: Conclusion : Explain my observations by answering following questions**
+Cluster 2 (Blue): low spending, high annual income; This may indicate a more conservative spending behavior or that they prefer to save rather than spend on your platform. To engage this segment, you could focus on showcasing the value and quality of your products or offering personalized recommendations based on their specific interests.
 
-  How long was your total run time to train the best model?
-  Did you find the BEST TREE?
-  Write your observations from the visualization of the best tree
-  Will this Tree “overfit”?
-  
-  
-  
-**Part 8: Prediction using my best Decision Tree Model**
+Cluster 3 (Green-Blue): low annual income, high spending power; This could imply that they prioritize spending on your platform, even if it means cutting back on other expenses. To retain and grow this segment, you can offer loyalty programs or exclusive discounts that reward their continued patronage.
 
-Make prediction of a “new” individual’s Income Category ( <=50K, or >50K ) with the following information
-• Hours Worked per Week = 48
-• Occupation Category = Mid - Low
-• Marriage Status & Relationships = High
-• Capital Gain = Yes
-• Race-Sex Group = Mid
-• Number of Years of Education = 12
-• Education Category = High
-• Work Class
+Cluster 4 (Green): moderate annual income, moderate spending power; this group may need furthur demographic data for analysis in order to provide suitable strategy
 
-Evaluate prediction by calculating “probability score”
+Cluster 5 (Yellow): high annual income, high spending power; They might be more interested in premium or luxury products and services. Targeting this segment could involve offering tailored recommendations, premium services, or exclusive products that cater to their tastes and preferences.
